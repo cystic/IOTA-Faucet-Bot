@@ -23,7 +23,7 @@ else:
         posts_replied_to = posts_replied_to.split("\n")
         posts_replied_to = list(filter(None, posts_replied_to))
 
-# Get the top 5 values from our subreddit
+# Get the top stream of values from our subreddit
 subreddit = reddit.subreddit('iotafaucet')
 for submission in subreddit.stream.submissions():  
     #print(submission.title)
