@@ -13,3 +13,7 @@ password=
 username=
 
 2) Run python if.py
+
+
+Find the latest backup of posts_replied_to.txt at
+https://drive.google.com/open?id=0B5FB2pQ9Bow8aXkwdVY2b0NQV28
