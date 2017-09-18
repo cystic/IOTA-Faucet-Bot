@@ -40,4 +40,4 @@ for submission in subreddit.stream.submissions():
             # Append the current id into our list
             posts_replied_to.append(submission.id)
             with open("posts_replied_to.txt", "a") as f:
-                f.write(submission.id)
+                f.write('\n' + submission.id)
