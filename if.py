@@ -3,6 +3,7 @@ import praw
 import pdb
 import re
 import os
+import time
 
 
 # Create the Reddit instance
@@ -41,3 +42,5 @@ for submission in subreddit.stream.submissions():
             posts_replied_to.append(submission.id)
             with open("posts_replied_to.txt", "a") as f:
                 f.write('\n' + submission.id)
+            # rate limit is 30 requests per minute, so just to stay on the safe side, we limit to 60/3 = 20 requests
+            time.sleep(3)
