@@ -25,7 +25,10 @@ else:
         posts_replied_to = list(filter(None, posts_replied_to))
 
 # Get the top stream of values from our subreddit
-subreddit = reddit.subreddit('iotafaucet')
+try:
+    subreddit = reddit.subreddit('iotafaucet')
+except:
+    print "Oops!  Had trouble getting data from Reddit"
 for submission in subreddit.stream.submissions():  
     #print(submission.title)
     
