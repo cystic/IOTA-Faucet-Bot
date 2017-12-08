@@ -27,23 +27,25 @@ else:
 # Get the top stream of values from our subreddit
 try:
     subreddit = reddit.subreddit('iotafaucet')
+
+    for submission in subreddit.stream.submissions():  
+        #print(submission.title)
+    
+        # If we haven't replied to this post before
+        if submission.id not in posts_replied_to:
+        
+            # Do a case insensitive search
+            if re.search("iota", submission.title, re.IGNORECASE):
+                # Reply to the post
+                submission.reply("Welcome to IOTA. +200 IOTA")
+                print("Bot replying to : ", submission.title)
+            
+                # Append the current id into our list
+                posts_replied_to.append(submission.id)
+                with open("posts_replied_to.txt", "a") as f:
+                    f.write('\n' + submission.id)
+                # rate limit is 30 requests per minute, so just to stay on the safe side, we limit to 60/3 = 20 requests
+                time.sleep(3)
 except:
     print "Oops!  Had trouble getting data from Reddit"
-for submission in subreddit.stream.submissions():  
-    #print(submission.title)
-    
-    # If we haven't replied to this post before
-    if submission.id not in posts_replied_to:
-        
-        # Do a case insensitive search
-        if re.search("iota", submission.title, re.IGNORECASE):
-            # Reply to the post
-            submission.reply("Welcome to IOTA. +200 IOTA")
-            print("Bot replying to : ", submission.title)
-            
-            # Append the current id into our list
-            posts_replied_to.append(submission.id)
-            with open("posts_replied_to.txt", "a") as f:
-                f.write('\n' + submission.id)
-            # rate limit is 30 requests per minute, so just to stay on the safe side, we limit to 60/3 = 20 requests
-            time.sleep(3)
+    time.sleep(3)
