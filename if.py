@@ -4,7 +4,12 @@ import pdb
 import re
 import os
 import time
+import sys
 
+if len(sys.argv) > 1:
+    timestamp = sys.argv[1]
+else:
+    timestamp = time.time()
 
 # Create the Reddit instance
 reddit = praw.Reddit('bot1')
@@ -26,18 +31,18 @@ else:
 
 # Get the top stream of values from our subreddit
 subreddit = reddit.subreddit('iotafaucet')
-for submission in subreddit.stream.submissions():  
+for submission in subreddit.stream.submissions():
     #print(submission.title)
-    
+
     # If we haven't replied to this post before
-    if submission.id not in posts_replied_to:
-        
+    if submission.id not in posts_replied_to and submission.created_utc > timestamp:
+
         # Do a case insensitive search
         if re.search("iota", submission.title, re.IGNORECASE):
             # Reply to the post
             submission.reply("Welcome to IOTA. +200 IOTA")
             print("Bot replying to : ", submission.title)
-            
+
             # Append the current id into our list
             posts_replied_to.append(submission.id)
             with open("posts_replied_to.txt", "a") as f:
